@@ -24,10 +24,10 @@ jobs:
           access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret: ${{ secrets.AWS_ACCESS_SECRET }}
 
-      - uses: riskfintech-ltd/actions/helm@dev
-        with:
-          chartmuseum-username: ${{ secrets.CHARTMUSEUM_USERNAME }}
-          chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
+#      - uses: riskfintech-ltd/actions/helm@dev
+#        with:
+#          chartmuseum-username: ${{ secrets.CHARTMUSEUM_USERNAME }}
+#          chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
 
       - uses: riskfintech-ltd/actions/slack@dev
         with:
