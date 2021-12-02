@@ -7,8 +7,7 @@ inputs:
     default: ${{ github.event.repository.name }}
   slack-webhook-url:
     description: URL of Slack Webhook to notify
-    required: false
-    default: ${{ secrets.SLACK_WEBHOOK_URL }}
+    required: true
   build-type:
     description: Type of the build (release/development)
     required: false

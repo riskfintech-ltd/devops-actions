@@ -30,3 +30,5 @@ jobs:
           chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
 
       - uses: riskfintech-ltd/actions/slack@dev
+        with:
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
