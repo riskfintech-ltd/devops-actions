@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: riskfintech-ltd/actions/prepare-build@v1
+      - uses: riskfintech-ltd/actions/prepare-build@a7297d1
       # Do some testing here or whatever you need
       # - name: Testing
       #     run: |
       #       .......
-      - uses: riskfintech-ltd/actions/publish-ecr@v1
-      - uses: riskfintech-ltd/actions/helm@v1
-      - uses: riskfintech-ltd/actions/slack@v1
+      - uses: riskfintech-ltd/actions/publish-ecr@a7297d1
+      - uses: riskfintech-ltd/actions/helm@a7297d1
+      - uses: riskfintech-ltd/actions/slack@a7297d1
