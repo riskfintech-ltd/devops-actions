@@ -61,5 +61,5 @@ runs:
         BUILD_VERSION: ${{ env.date }}-${{ github.run_number }}${{ env.artifact_infix }}-${{steps.sha_vars.outputs.short_}}
       run: |
         echo "build_version=$BUILD_VERSION" >> $GITHUB_ENV
-        echo "chart_version=not set" >> $GITHUB_ENV
+        echo "chart_version=$BUILD_VERSION-chart" >> $GITHUB_ENV
       shell: bash

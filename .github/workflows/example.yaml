@@ -11,11 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: riskfintech-ltd/actions/prepare-build@44d4d5c0e42094724a18eabdf362e7f5fcfc1ac1
+
+      - uses: riskfintech-ltd/actions/prepare-build@dev
+
       # Do some testing here or whatever you need
       # - name: Testing
       #     run: |
       #       .......
-      - uses: riskfintech-ltd/actions/publish-ecr@44d4d5c0e42094724a18eabdf362e7f5fcfc1ac1
-      - uses: riskfintech-ltd/actions/helm@44d4d5c0e42094724a18eabdf362e7f5fcfc1ac1
-      - uses: riskfintech-ltd/actions/slack@44d4d5c0e42094724a18eabdf362e7f5fcfc1ac1
+
+      - uses: riskfintech-ltd/actions/publish-ecr@dev
+          with:
+            access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            secret: ${{ secrets.AWS_ACCESS_SECRET }}
+
+      - uses: riskfintech-ltd/actions/helm@dev
+          with:
+            chartmuseum-username: ${{ secrets.CHARTMUSEUM_USERNAME }}
+            chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
+
+      - uses: riskfintech-ltd/actions/slack@dev

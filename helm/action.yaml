@@ -5,25 +5,25 @@ inputs:
     description: Name of project to build
     required: false
     default: ${{ github.event.repository.name }}
-  build-version:
-    description: Build version
-    required: false
-    default: ${{ env.build-version }}
-  chart-version:
-    description: Generated Chart version
-    required: false
-    default: ${{ inputs.build-version }}-chart
+#  build-version:
+#    description: Build version
+#    required: false
+#    default: ${{ env.build-version }}
+#  chart-version:
+#    description: Generated Chart version
+#    required: false
+#    default: ${{ env.build-version }}-chart
   chartmuseum-url:
     description: URL of Chart Museum
     required: false
     default: https://chartmuseum.riskfintech.co.uk
   chartmuseum-username:
     description: User name for Chart Museum
-    required: false
+    required: true
     default: ${{ secrets.CHARTMUSEUM_USERNAME }}
   chartmuseum-password:
     description: Password for Chart Museum
-    required: false
+    required: true
     default: ${{ secrets.CHARTMUSEUM_PASSWORD }}
 outputs:
   chart-package:
