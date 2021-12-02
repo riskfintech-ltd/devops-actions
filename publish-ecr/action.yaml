@@ -26,7 +26,7 @@ inputs:
 outputs:
   image:
     description: Docker image
-    value: ${{ steps.docker.outputs.image }}
+    value: ${{ env.image }}
 runs:
   using: "composite"
   steps:
@@ -46,7 +46,7 @@ runs:
       env:
         DOCKER_BUILDKIT: '1'
       run: |
-        echo "::set-output name=image::${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.build-version }}
-        docker build ${{ inputs.build-args }} -t ${{ steps.docker.outputs.image }} .
-        docker push ${{ steps.docker.outputs.image }}
+        echo "image=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.build-version }}" >> GITHUB_ENV
+        docker build ${{ inputs.build-args }} -t ${{ env.image }} .
+        docker push ${{ env.image }}
       shell: bash
