@@ -20,13 +20,13 @@ jobs:
       #       .......
 
       - uses: riskfintech-ltd/actions/publish-ecr@dev
-          with:
-            access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            secret: ${{ secrets.AWS_ACCESS_SECRET }}
+        with:
+          access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret: ${{ secrets.AWS_ACCESS_SECRET }}
 
       - uses: riskfintech-ltd/actions/helm@dev
-          with:
-            chartmuseum-username: ${{ secrets.CHARTMUSEUM_USERNAME }}
-            chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
+        with:
+          chartmuseum-username: ${{ secrets.CHARTMUSEUM_USERNAME }}
+          chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
 
       - uses: riskfintech-ltd/actions/slack@dev
