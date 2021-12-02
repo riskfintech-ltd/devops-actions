@@ -1,2 +1,1 @@
-FROM scratch
-WORKDIR /
+FROM alpine:latest
