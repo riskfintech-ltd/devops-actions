@@ -1,14 +1,6 @@
 name: Publish to ECR
 description: Build docker image and publish it to ECR
 inputs:
-#  ecr-repository:
-#    description: Name of ECR repository to publish
-#    required: false
-#    default: ${{ env.ecr_repository }}
-#  build-version:
-#    description: Build version
-#    required: false
-#    default: ${{ env.build_version }}
   access-key:
     description: AWS Access Key
     required: true
@@ -46,7 +38,7 @@ runs:
       env:
         DOCKER_BUILDKIT: '1'
       run: |
-        echo "image=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.build-version }}" >> GITHUB_ENV
+        echo "image=${{ steps.login-ecr.outputs.registry }}/${{ env.ecr_repository }}:${{ env.build_version }}" >> GITHUB_ENV
         docker build ${{ inputs.build-args }} -t ${{ env.image }} .
         docker push ${{ env.image }}
       shell: bash

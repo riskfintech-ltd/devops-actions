@@ -5,14 +5,6 @@ inputs:
     description: Name of project to build
     required: false
     default: ${{ github.event.repository.name }}
-#  build-version:
-#    description: Build version
-#    required: false
-#    default: ${{ env.build-version }}
-#  chart-version:
-#    description: Generated Chart version
-#    required: false
-#    default: ${{ env.build-version }}-chart
   chartmuseum-url:
     description: URL of Chart Museum
     required: false
@@ -26,7 +18,7 @@ inputs:
 outputs:
   chart-package:
     description: Packge published to Chart Museum
-    value: ${{ steps.push.outputs.chart-package }}
+    value: ${{ env.chart_package }}
 runs:
   using: composite
   steps:
@@ -40,13 +32,12 @@ runs:
       shell: bash
     - name: Package Helm Chart
       run: |
-        echo "chart_version=${{ inputs.chart-version }}" >> $GITHUB_ENV
-        helm package chart --version ${{ inputs.chart-version }} --app-version ${{ inputs.build-version }}
-        echo "Helm package created with version ${{ inputs.chart-version }}"
+        helm package chart --version ${{ env.chart_version }} --app-version ${{ env.build_version }}
+        echo "Helm package created with version ${{ env.chart_version }}"
       shell: bash
     - name: Push Helm Chart to Chartmuseum
       id: push
       run: |
-        echo "::set-output name=chart-package::${{ inputs.name }}-${{ inputs.chart-version }}.tgz"
-        curl -u ${{ inputs.chartmuseum-username }}:${{ inputs.chartmuseum-password }} -F "chart=@${{ steps.push.outputs.chart-package }}" ${{inputs.chartmuseum-url}}/api/charts
+        echo "chart_package::${{ inputs.name }}-${{ env.chart_version }}.tgz" >> GITHUB_ENV
+        curl -u ${{ inputs.chartmuseum-username }}:${{ inputs.chartmuseum-password }} -F "chart=@${{ env.chart_package }}" ${{inputs.chartmuseum-url}}/api/charts
       shell: bash

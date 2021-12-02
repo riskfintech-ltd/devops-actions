@@ -8,18 +8,6 @@ inputs:
   slack-webhook-url:
     description: URL of Slack Webhook to notify
     required: true
-#  build-type:
-#    description: Type of the build (release/development)
-#    required: false
-#    default: ${{ env.build_type }}
-#  build-version:
-#    description: Build version
-#    required: false
-#    default: ${{ env.build-version }}
-#  chart-version:
-#    description: Version of the Chart
-#    required: false
-#    default: ${{ inputs.build-version }}-chart
 runs:
   using: composite
   steps:
