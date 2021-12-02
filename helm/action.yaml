@@ -20,11 +20,9 @@ inputs:
   chartmuseum-username:
     description: User name for Chart Museum
     required: true
-    default: ${{ secrets.CHARTMUSEUM_USERNAME }}
   chartmuseum-password:
     description: Password for Chart Museum
     required: true
-    default: ${{ secrets.CHARTMUSEUM_PASSWORD }}
 outputs:
   chart-package:
     description: Packge published to Chart Museum
