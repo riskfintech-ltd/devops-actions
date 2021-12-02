@@ -23,7 +23,7 @@ outputs:
     value: ${{ env.build_version }}
   chart-version:
     description: Generated Chart version
-    value: ${{ env.build_version }}-chart
+    value: ${{ env.chart_version }}
   name:
     description: Name of the project
     value: ${{ inputs.name }}

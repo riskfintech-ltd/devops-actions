@@ -8,18 +8,18 @@ inputs:
   slack-webhook-url:
     description: URL of Slack Webhook to notify
     required: true
-  build-type:
-    description: Type of the build (release/development)
-    required: false
-    default: ${{ env.build_type }}
-  build-version:
-    description: Build version
-    required: false
-    default: ${{ env.build-version }}
-  chart-version:
-    description: Version of the Chart
-    required: false
-    default: ${{ inputs.build-version }}-chart
+#  build-type:
+#    description: Type of the build (release/development)
+#    required: false
+#    default: ${{ env.build_type }}
+#  build-version:
+#    description: Build version
+#    required: false
+#    default: ${{ env.build-version }}
+#  chart-version:
+#    description: Version of the Chart
+#    required: false
+#    default: ${{ inputs.build-version }}-chart
 runs:
   using: composite
   steps:
@@ -36,5 +36,5 @@ runs:
         BUILD_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         STATUS_MESSAGE: ${{ env.status_message }}
       run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text": "Github *'"${{ inputs.build-type}}"'* build for *'"${{ inputs.name }}"'* app version '"${{ inputs.build-version }}"', chart version '"${{ inputs.chart-version }}"' '"$STATUS_MESSAGE"' Build run url: '"$BUILD_RUN_URL"'"}' ${{ inputs.slack-webhook-url }}
+        curl -X POST -H 'Content-type: application/json' --data '{"text": "Github *'"${{ env.build_type}}"'* build for *'"${{ inputs.name }}"'* app version '"${{ env.build_version }}"', chart version '"${{ env.chart_version }}"' '"$STATUS_MESSAGE"' Build run url: '"$BUILD_RUN_URL"'"}' ${{ inputs.slack-webhook-url }}
       shell: bash
