@@ -37,8 +37,9 @@ runs:
       id: docker
       env:
         DOCKER_BUILDKIT: '1'
+        IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ecr_repository }}:${{ env.build_version }}
       run: |
-        echo "image=${{ steps.login-ecr.outputs.registry }}/${{ env.ecr_repository }}:${{ env.build_version }}" >> GITHUB_ENV
-        docker build ${{ inputs.build-args }} -t ${{ env.image }} .
-        docker push ${{ env.image }}
+        echo "image=$IMAGE" >> GITHUB_ENV
+        docker build ${{ inputs.build-args }} -t $IMAGE .
+        docker push $IMAGE
       shell: bash
