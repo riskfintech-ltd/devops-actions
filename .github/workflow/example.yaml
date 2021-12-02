@@ -1,0 +1,21 @@
+name: Example of Build and Push to ECR and Chart Museum And Slack notification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: riskfintech-ltd/actions/prepare-build@v1
+      # Do some testing here or whatever you need
+      # - name: Testing
+      #     run: |
+      #       .......
+      - uses: riskfintech-ltd/actions/publish-ecr@v1
+      - uses: riskfintech-ltd/actions/helm@v1
+      - uses: riskfintech-ltd/actions/slack@v1
