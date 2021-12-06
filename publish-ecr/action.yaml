@@ -1,0 +1,49 @@
+name: Publish to ECR
+description: Build docker image and publish it to ECR
+inputs:
+  access-key:
+    description: AWS Access Key
+    required: true
+  secret:
+    description: AWS Secret
+    required: true
+  region:
+    description: AWS Region
+    required: false
+    default: eu-west-2
+  build-args:
+    description: Values for --build-arg docker option
+    required: false
+    default: ""
+  ssh:
+    description: SSH parameter
+    required: false
+    default: ""
+outputs:
+  image:
+    description: Docker image
+    value: ${{ env.image }}
+runs:
+  using: "composite"
+  steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ inputs.access-key }}
+        aws-secret-access-key: ${{ inputs.secret }}
+        aws-region: ${{ inputs.region }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: docker
+      env:
+        DOCKER_BUILDKIT: '1'
+        IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ecr_repository }}:${{ env.build_version }}
+      run: |
+        echo "image=$IMAGE" >> GITHUB_ENV
+        docker build ${{ inputs.build-args }} -t $IMAGE ${{ inputs.ssh }} .
+        docker push $IMAGE
+      shell: bash

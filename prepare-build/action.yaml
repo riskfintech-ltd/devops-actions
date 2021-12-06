@@ -1,0 +1,65 @@
+name: Set up build
+description: Prepare environment
+inputs:
+  name:
+    description: Name of project to build
+    required: false
+    default: ${{ github.event.repository.name }}
+outputs:
+  build-type:
+    description: release or development
+    value: ${{ env.build_type }}
+  ecr-repository:
+    description: Name of ECR repository
+    value: ${{ env.ecr_repository }}
+  sha-short-var:
+    description: Current Git commit head
+    value: ${{ steps.sha_vars.outputs.short }}
+  sha-full-var:
+    description: Current Git commit head
+    value: ${{ steps.sha_vars.outputs.full }}
+  build-version:
+    description: Generated build version
+    value: ${{ env.build_version }}
+  chart-version:
+    description: Generated Chart version
+    value: ${{ env.chart_version }}
+  name:
+    description: Name of the project
+    value: ${{ inputs.name }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set artifact suffix and docker repository for 'push' event
+      if: github.event_name == 'push'
+      run: |
+        echo "artifact_infix=" >> $GITHUB_ENV
+        echo "build_type=release" >> $GITHUB_ENV
+        echo "ecr_repository=release/${{ inputs.name }}" >> $GITHUB_ENV
+      shell: bash
+    - name: Set artifact suffix and docker repository for 'pull_request' event
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "artifact_infix=-dev" >> $GITHUB_ENV
+        echo "build_type=development" >> $GITHUB_ENV
+        echo "ecr_repository=development/${{ inputs.name }}" >> $GITHUB_ENV
+      shell: bash
+    - name: Set commit sha variables
+      id: sha_vars
+      run: |
+        echo "::set-output name=short::$(git rev-parse --short HEAD)"
+        echo "::set-output name=full::$(git -C . rev-parse HEAD)"
+      shell: bash
+    - name: Set build date variable
+      id: date_var
+      run: |
+        echo "date=$(date +'%Y.%-m.%-d')" >> $GITHUB_ENV
+        echo "date_year=$(date +'%Y')" >> $GITHUB_ENV
+      shell: bash
+    - name: Generate version
+      env:
+        BUILD_VERSION: ${{ env.date }}-${{ github.run_number }}${{ env.artifact_infix }}-${{ steps.sha_vars.outputs.short }}
+      run: |
+        echo "build_version=$BUILD_VERSION" >> $GITHUB_ENV
+        echo "chart_version=$BUILD_VERSION-chart" >> $GITHUB_ENV
+      shell: bash

@@ -1,0 +1,44 @@
+name: Build and publish to Chart Museum
+description: Build a package and publish it to Chart Museum
+inputs:
+  name:
+    description: Name of project to build
+    required: false
+    default: ${{ github.event.repository.name }}
+  chartmuseum-url:
+    description: URL of Chart Museum
+    required: true
+  chartmuseum-username:
+    description: User name for Chart Museum
+    required: true
+  chartmuseum-password:
+    description: Password for Chart Museum
+    required: true
+outputs:
+  chart-package:
+    description: Packge published to Chart Museum
+    value: ${{ env.chart_package }}
+runs:
+  using: composite
+  steps:
+    - name: Install Helm
+      run: |
+        curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+        sudo apt-get install apt-transport-https --yes
+        echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+        sudo apt-get update
+        sudo apt-get install helm
+      shell: bash
+    - name: Package Helm Chart
+      run: |
+        helm package chart --version ${{ env.chart_version }} --app-version ${{ env.build_version }}
+        echo "Helm package created with version ${{ env.chart_version }}"
+      shell: bash
+    - name: Push Helm Chart to Chartmuseum
+      id: push
+      env:
+        CHART_PACKAGE: ${{ inputs.name }}-${{ env.chart_version }}.tgz
+      run: |
+        echo "chart_package=$CHART_PACKAGE" >> GITHUB_ENV
+        curl -u ${{ inputs.chartmuseum-username }}:${{ inputs.chartmuseum-password }} -F "chart=@$CHART_PACKAGE" ${{inputs.chartmuseum-url}}/api/charts
+      shell: bash

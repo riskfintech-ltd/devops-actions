@@ -1,0 +1,28 @@
+name: Notify Slack
+description: Notify Slack about build result (successful or failed)
+inputs:
+  name:
+    description: Name of project to build
+    required: false
+    default: ${{ github.event.repository.name }}
+  slack-webhook-url:
+    description: URL of Slack Webhook to notify
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Set successful build status message
+      run: echo "status_message=built *successfully*! :smile:" >> $GITHUB_ENV
+      shell: bash
+    - name: Set failed build status message
+      if: ${{ failure() }}
+      run: echo "status_message=*failed*! :cry:" >> $GITHUB_ENV
+      shell: bash
+    - name: Send build notification to Slack
+      if: ${{ always() }}
+      env:
+        BUILD_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        STATUS_MESSAGE: ${{ env.status_message }}
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text": "Github *'"${{ env.build_type}}"'* build for *'"${{ inputs.name }}"'* app version '"${{ env.build_version }}"', chart version '"${{ env.chart_version }}"' '"$STATUS_MESSAGE"' Build run url: '"$BUILD_RUN_URL"'"}' ${{ inputs.slack-webhook-url }}
+      shell: bash
