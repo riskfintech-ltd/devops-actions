@@ -65,7 +65,7 @@ Notify Slack about build result (successful or failed).
 * **slack-webhook-url** -- URL of Slack Webhook to notify.
 
 ## Example:
-```
+```yaml
   - uses: riskfintech-ltd/actions/slack@v1
     with:
       slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
