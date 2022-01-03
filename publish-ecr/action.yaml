@@ -19,6 +19,10 @@ inputs:
     description: SSH parameter
     required: false
     default: ""
+  file:
+    description: Name of Dockerfile
+    required: false
+    default: Dockerfile
 outputs:
   image:
     description: Docker image
@@ -44,6 +48,6 @@ runs:
         IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ecr_repository }}:${{ env.build_version }}
       run: |
         echo "image=$IMAGE" >> GITHUB_ENV
-        docker build ${{ inputs.build-args }} -t $IMAGE ${{ inputs.ssh }} .
+        docker build ${{ inputs.build-args }} -f ${{ inputs.file }} -t $IMAGE ${{ inputs.ssh }} .
         docker push $IMAGE
       shell: bash

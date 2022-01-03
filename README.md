@@ -29,6 +29,7 @@ Prepare set of variables related to project build that will be used later.
 * **region** [Optional] -- AWS Region name. Default region is `eu-west-2`.
 * **build-args** [Optional] -- Build args for `docker build`.
 * **ssh** [Optional] -- SSH parameter for `docker build`.
+* **file** [Optional] -- Name of `Dockerfile` file.
 
 ### Output
 * **image** -- Docker image that was built and pushed to ECR
