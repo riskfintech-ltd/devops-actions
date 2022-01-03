@@ -21,7 +21,7 @@ runs:
     - name: Send build notification to Slack
       if: ${{ always() }}
       env:
-        BUILD_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        BUILD_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/devops-actions/runs/${{ github.run_id }}
         STATUS_MESSAGE: ${{ env.status_message }}
       run: |
         curl -X POST -H 'Content-type: application/json' --data '{"text": "Github *'"${{ env.build_type}}"'* build for *'"${{ inputs.name }}"'* app version '"${{ env.build_version }}"', chart version '"${{ env.chart_version }}"' '"$STATUS_MESSAGE"' Build run url: '"$BUILD_RUN_URL"'"}' ${{ inputs.slack-webhook-url }}
