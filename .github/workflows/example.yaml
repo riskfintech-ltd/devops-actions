@@ -37,3 +37,4 @@ jobs:
       - uses: riskfintech-ltd/devops-actions/release@v3
         with:
           folder: './'
+          github-token: ${{ secrets.TOKEN }}

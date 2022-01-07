@@ -57,6 +57,11 @@ Publish project package to Chart Museum
 ## Example
 ```yaml
   - uses: riskfintech-ltd/devops-actions/helm@v1
+    with:
+      chartmuseum-url: "https://..."
+      chartmuseum-username: ${{ secrets.username }}
+      chartmuseum-password: ${{ secrets.password }}
+
 ```
 
 # Slack
@@ -78,6 +83,7 @@ Make a release with archive and tag on GitHub
 
 ## Input
 * **folder** -- folder with release content.
+* **github-token** -- GitHub token with access to the repo for deployment and tag.
 * **release-archive** [Optional] -- name of release archive with .zip extension. Use `${{ env.release_name }}.zip` by default.
 * **release-tag** [Optional] -- tag name for release (default is `${{ env.build_version }}`).
 
@@ -89,4 +95,5 @@ Make a release with archive and tag on GitHub
   - uses: riskfintech-ltd/devops-actions/release@v3
     with:
       folder: 'models/'
+      github-token: ${{ secrets.TOKEN }}
 ```

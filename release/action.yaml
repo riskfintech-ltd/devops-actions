@@ -16,6 +16,9 @@ inputs:
     description: destination ZIP file
     required: false
     default: ${{ inputs.release-name }}-${{ inputs.release-tag }}.zip
+  github-token:
+    description: GitHub token required to tag and deploy the release
+    required: true
 outputs:
   release-archive:
     description: Name of release archive
@@ -31,4 +34,4 @@ runs:
       with:
         tag: ${{ inputs.release-tag }}
         artifacts: ${{ inputs.release-archive }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.TOKEN }}
