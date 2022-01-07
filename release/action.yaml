@@ -28,4 +28,4 @@ runs:
       with:
         tag: ${{ inputs.release-tag }}
         artifacts: ${{ env.release-archive }}
-        token: ${{ secrets.TOKEN }}
+        token: ${{ inputs.github-token }}
