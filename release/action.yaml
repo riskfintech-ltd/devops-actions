@@ -30,5 +30,5 @@ runs:
       uses: ncipollo/release-action@v1
       with:
         tag: ${{ env.build_version }}
-        artifacts: ${{ env.release_archive }}
+        artifacts: $original_path/${{ env.release_archive }}
         token: ${{ inputs.github-token }}
