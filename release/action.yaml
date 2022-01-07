@@ -4,18 +4,22 @@ inputs:
   folder:
     description: folder to make archive from
     required: true
-  release-archive:
-    description: destination ZIP file
+  release-name:
+    description: Name of release
     required: false
-    default: ${{ env.release_name }}.zip
+    default: ${{ github.event.repository.name }}
   release-tag:
     description: Tag name for release
     required: false
     default: ${{ env.build_version }}
+  release-archive:
+    description: destination ZIP file
+    required: false
+    default: ${{ inputs.release-name }}-${{ inputs.release-tag }}.zip
 outputs:
   release-archive:
     description: Name of release archive
-    value: ${{ inputs.archive }}
+    value: ${{ inputs.release-archive }}
 runs:
   using: "composite"
   steps:

@@ -65,5 +65,4 @@ runs:
       run: |
         echo "build_version=$BUILD_VERSION" >> $GITHUB_ENV
         echo "chart_version=$BUILD_VERSION-chart" >> $GITHUB_ENV
-        echo "release_name=${{ inputs.name }}-${{ env.build_version }}"
       shell: bash

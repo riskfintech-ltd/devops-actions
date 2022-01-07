@@ -19,18 +19,18 @@ jobs:
       #     run: |
       #       .......
 
-      - uses: riskfintech-ltd/devops-actions/publish-ecr@v1
+      - uses: riskfintech-ltd/devops-actions/publish-ecr@v3
         with:
           access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret: ${{ secrets.AWS_ACCESS_SECRET }}
 
-#      - uses: riskfintech-ltd/devops-actions/helm@v1
+#      - uses: riskfintech-ltd/devops-actions/helm@v3
 #        with:
 #          chartmuseum-url: <put your Chart Museum URL here>
 #          chartmuseum-username: ${{ secrets.CHARTMUSEUM_USERNAME }}
 #          chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
 
-      - uses: riskfintech-ltd/devops-actions/slack@v1
+      - uses: riskfintech-ltd/devops-actions/slack@v3
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
 
