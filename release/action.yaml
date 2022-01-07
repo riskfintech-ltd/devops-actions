@@ -21,7 +21,7 @@ runs:
     - name: Make release zip file
       run: |
         echo "release_archive=${{ inputs.release-name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
-        original_path = $(pwd)
+        original_path=$(pwd)
         cd ${{ inputs.folder }}
         zip -r $original_path/${{ env.release-archive }} .
         cd $original_path
