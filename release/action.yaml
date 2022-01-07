@@ -11,6 +11,10 @@ inputs:
   github-token:
     description: GitHub token required to tag and deploy the release
     required: true
+  deploy-to-github:
+    description: Deploy release to Github
+    required: false
+    default: "yes"
 outputs:
   release-archive:
     description: Name of release archive
@@ -29,6 +33,7 @@ runs:
         zip -r $tmp_cwd/${{ env.release_archive }} .
       shell: bash
     - name: Upload Release
+      if: inputs.deploy-to-github == 'yes'
       uses: ncipollo/release-action@v1
       with:
         tag: ${{ env.build_version }}
