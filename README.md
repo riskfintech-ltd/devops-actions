@@ -86,7 +86,7 @@ Make a release with archive and tag on GitHub
 * **github-token** -- GitHub token with access to the repo for deployment and tag.
 
 ## Output
-* **release-archive** -- name of release archive.
+* **release-archive** -- name of release archive (also available from `${{ env.release_archive }}`.
 
 ## Example:
 ```yaml

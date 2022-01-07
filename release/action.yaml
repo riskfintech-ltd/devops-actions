@@ -14,18 +14,18 @@ inputs:
 outputs:
   release-archive:
     description: Name of release archive
-    value: ${{ env.release-archive }}
+    value: ${{ env.release_archive }}
 runs:
   using: "composite"
   steps:
     - name: Make release zip file
       run: |
-        echo "release-archive=${{ inputs.release-name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
+        echo "release_archive=${{ inputs.release-name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
         (cd ${{ inputs.folder }}/; zip -r "../${{ env.release-archive }}" .)
       shell: bash
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ inputs.release-tag }}
-        artifacts: ${{ env.release-archive }}
+        tag: ${{ env.build_version }}
+        artifacts: ${{ env.release_archive }}
         token: ${{ inputs.github-token }}
