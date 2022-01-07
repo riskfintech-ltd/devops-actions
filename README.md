@@ -37,7 +37,7 @@ Prepare set of variables related to project build that will be used later.
 
 ### Usage
 ```yaml
-  - uses: riskfintech-ltd/devops-actions/publish-ecr@v2
+  - uses: riskfintech-ltd/devops-actions/publish-ecr@v3
     with:
       build-args: --build-arg RELEASE_SIGNATRUE=${{ steps.build.outputs.name }}-${{ env.build_version }}
 ```
@@ -56,7 +56,7 @@ Publish project package to Chart Museum
 
 ## Example
 ```yaml
-  - uses: riskfintech-ltd/devops-actions/helm@v1
+  - uses: riskfintech-ltd/devops-actions/helm@v3
     with:
       chartmuseum-url: "https://..."
       chartmuseum-username: ${{ secrets.username }}
@@ -73,7 +73,7 @@ Notify Slack about build result (successful or failed).
 
 ## Example:
 ```yaml
-  - uses: riskfintech-ltd/devops-actions/slack@v1
+  - uses: riskfintech-ltd/devops-actions/slack@v3
     with:
       slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
 ```
