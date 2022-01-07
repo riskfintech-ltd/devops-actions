@@ -9,8 +9,9 @@ inputs:
     required: false
     default: ${{ github.event.repository.name }}
   github-token:
-    description: GitHub token required to tag and deploy the release
-    required: true
+    description: GitHub token required to tag and deploy the release. It's optional if don't need to deploy to GitHub (deploy-to-github=='no')
+    required: false
+    default: ""
   deploy-to-github:
     description: Deploy release to Github
     required: false
