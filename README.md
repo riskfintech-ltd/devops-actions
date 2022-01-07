@@ -19,7 +19,7 @@ Prepare set of variables related to project build that will be used later.
 
 ### Usage
 ```yaml
-- uses: riskfintech-ltd/devops-actions/prepare-build@v1
+- uses: riskfintech-ltd/devops-actions/prepare-build@v3
 ```
 
 ## Build and Publish to ECR

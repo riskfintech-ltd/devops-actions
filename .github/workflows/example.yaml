@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: riskfintech-ltd/devops-actions/prepare-build@v1
+      - uses: riskfintech-ltd/devops-actions/prepare-build@v3
 
       # Do some testing here or whatever you need
       # - name: Testing
