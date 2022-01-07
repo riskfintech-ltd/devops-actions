@@ -30,11 +30,12 @@ jobs:
 #          chartmuseum-username: ${{ secrets.CHARTMUSEUM_USERNAME }}
 #          chartmuseum-password: ${{ secrets.CHARTMUSEUM_PASSWORD }}
 
+      - uses: riskfintech-ltd/devops-actions/release@v3
+        with:
+          folder: 'release'
+          github-token: ${{ secrets.TOKEN }}
+
       - uses: riskfintech-ltd/devops-actions/slack@v3
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - uses: riskfintech-ltd/devops-actions/release@v3
-        with:
-          folder: './'
-          github-token: ${{ secrets.TOKEN }}

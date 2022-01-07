@@ -21,7 +21,10 @@ runs:
     - name: Make release zip file
       run: |
         echo "release_archive=${{ inputs.release-name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
-        (cd ${{ inputs.folder }}/; zip -r "../${{ env.release-archive }}" .)
+        original_path = $(pwd)
+        cd ${{ inputs.folder }}
+        zip -r $original_path/${{ env.release-archive }} .
+        cd $original_path
       shell: bash
     - name: Upload Release
       uses: ncipollo/release-action@v1
