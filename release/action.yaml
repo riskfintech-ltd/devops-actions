@@ -8,30 +8,24 @@ inputs:
     description: Name of release
     required: false
     default: ${{ github.event.repository.name }}
-  release-tag:
-    description: Tag name for release
-    required: false
-    default: ${{ env.build_version }}
-  release-archive:
-    description: destination ZIP file
-    required: false
-    default: ${{ inputs.release-name }}-${{ inputs.release-tag }}.zip
   github-token:
     description: GitHub token required to tag and deploy the release
     required: true
 outputs:
   release-archive:
     description: Name of release archive
-    value: ${{ inputs.release-archive }}
+    value: ${{ env.release-archive }}
 runs:
   using: "composite"
   steps:
     - name: Make release zip file
-      run: (cd ${{ inputs.folder }}/; zip -r "../${{ inputs.release-archive }}" .)
+      run: |
+        echo "release-archive=${{ inputs.release-name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
+        (cd ${{ inputs.folder }}/; zip -r "../${{ env.release-archive }}" .)
       shell: bash
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
         tag: ${{ inputs.release-tag }}
-        artifacts: ${{ inputs.release-archive }}
+        artifacts: ${{ env.release-archive }}
         token: ${{ secrets.TOKEN }}

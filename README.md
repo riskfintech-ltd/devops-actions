@@ -84,8 +84,6 @@ Make a release with archive and tag on GitHub
 ## Input
 * **folder** -- folder with release content.
 * **github-token** -- GitHub token with access to the repo for deployment and tag.
-* **release-archive** [Optional] -- name of release archive with .zip extension. Use `${{ env.release_name }}.zip` by default.
-* **release-tag** [Optional] -- tag name for release (default is `${{ env.build_version }}`).
 
 ## Output
 * **release-archive** -- name of release archive.
