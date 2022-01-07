@@ -33,3 +33,7 @@ jobs:
       - uses: riskfintech-ltd/devops-actions/slack@v1
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - uses: riskfintech-ltd/devops-actions/release@v3
+        with:
+          folder: './'

@@ -27,6 +27,9 @@ outputs:
   name:
     description: Name of the project
     value: ${{ inputs.name }}
+  release-name:
+    description: Name of the release
+    value: ${{ env.release_name }}
 runs:
   using: "composite"
   steps:
@@ -62,4 +65,5 @@ runs:
       run: |
         echo "build_version=$BUILD_VERSION" >> $GITHUB_ENV
         echo "chart_version=$BUILD_VERSION-chart" >> $GITHUB_ENV
+        echo "release_name=${{ inputs.name }}-${{ env.build_version }}"
       shell: bash

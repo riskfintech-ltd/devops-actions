@@ -1,0 +1,30 @@
+name: Make a Release
+description: Make a ZIP-file of some folder and upload it to GitHub
+inputs:
+  folder:
+    description: folder to make archive from
+    required: true
+  release-archive:
+    description: destination ZIP file
+    required: false
+    default: ${{ env.release_name }}.zip
+  release-tag:
+    description: Tag name for release
+    required: false
+    default: ${{ env.build_version }}
+outputs:
+  release-archive:
+    description: Name of release archive
+    value: ${{ inputs.archive }}
+runs:
+  using: "composite"
+  steps:
+    - name: Make release zip file
+      run: (cd ${{ inputs.folder }}/; zip -r "../${{ inputs.release-archive }}" .)
+      shell: bash
+    - name: Upload Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ inputs.release-tag }}
+        artifacts: ${{ inputs.release-archive }}
+        token: ${{ secrets.GITHUB_TOKEN }}

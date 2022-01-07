@@ -15,6 +15,7 @@ Prepare set of variables related to project build that will be used later.
 * **ecr-repository** -- Name of ECR repository (also accessed via ${{ env.ecr-repository }}).
 * **sha-short-var** -- Current Git commit head (short version).
 * **sha-full-var** -- Current Git commit head (full version).
+* **release-name** -- Release name (it can be used for making a release archive, for example), it's also accessible via ${{ env.release_name }}.  
 
 ### Usage
 ```yaml
@@ -70,4 +71,22 @@ Notify Slack about build result (successful or failed).
   - uses: riskfintech-ltd/devops-actions/slack@v1
     with:
       slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+```
+
+# Release
+Make a release with archive and tag on GitHub
+
+## Input
+* **folder** -- folder with release content.
+* **release-archive** [Optional] -- name of release archive with .zip extension. Use `${{ env.release_name }}.zip` by default.
+* **release-tag** [Optional] -- tag name for release (default is `${{ env.build_version }}`).
+
+## Output
+* **release-archive** -- name of release archive.
+
+## Example:
+```yaml
+  - uses: riskfintech-ltd/devops-actions/release@v3
+    with:
+      folder: 'models/'
 ```
