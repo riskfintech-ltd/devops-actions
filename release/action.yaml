@@ -25,7 +25,7 @@ runs:
     - name: Make release zip file
       run: |
         cd ${{ inputs.folder }}
-        zip -r ${{ env.release-archive }} .
+        zip -r ${{ env.release_archive }} .
       shell: bash
     - name: Upload Release
       uses: ncipollo/release-action@v1
