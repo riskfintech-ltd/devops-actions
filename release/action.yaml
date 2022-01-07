@@ -18,17 +18,18 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Make release zip file
+    - name: Set up archive name
       run: |
         echo "release_archive=${{ inputs.release-name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
-        echo "tmp_original_path=$(pwd)" >> $GITHUB_ENV
+      shell: bash
+    - name: Make release zip file
+      run: |
         cd ${{ inputs.folder }}
-        zip -r ${{ env.tmp_original_path }}/${{ env.release-archive }} .
-        cd ${{ env.tmp_original_path }}
+        zip -r ${{ env.release-archive }} .
       shell: bash
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
         tag: ${{ env.build_version }}
-        artifacts: ${{ env.tmp_original_path }}/${{ env.release_archive }}
+        artifacts: ${{ env.release_archive }}
         token: ${{ inputs.github-token }}
