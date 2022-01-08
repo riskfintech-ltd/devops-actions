@@ -85,6 +85,7 @@ Make a release with archive and tag on GitHub
 * `folder` -- folder with release content.
 * `github-token` -- GitHub token with access to the repo for deployment and tag.
 * `deploy-to-github` [Optional] -- Should the action deploy release to GitHub, `"yes"` by default.
+* `name` [Optional] -- Release name. Will be equal to Git repo name `${{ github.event.repository.name }}` if not set.
 
 ## Output
 * `release-archive` -- name of release archive (also available from `${{ env.release_archive }}`.
