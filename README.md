@@ -97,3 +97,11 @@ Make a release with archive and tag on GitHub
       folder: 'models/'
       github-token: ${{ secrets.TOKEN }}
 ```
+
+# Get branch name
+Service action for getting current branch name in workflow
+
+## Outputs
+Saves branch name into `env.BRANCH_NAME`.
+
+## Example:

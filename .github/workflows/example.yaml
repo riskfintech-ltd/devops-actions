@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: riskfintech-ltd/devops-actions/get-branch-name@v3
+      - name: Print current branch name
+        run: |
+          echo ${{ env.BRANCH_NAME }}
+
       - uses: riskfintech-ltd/devops-actions/prepare-build@v3
 
       # Do some testing here or whatever you need
