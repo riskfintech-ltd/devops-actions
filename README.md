@@ -9,7 +9,7 @@ Prepare set of variables related to project build that will be used later.
 
 ### Output
 * `name` -- Name of the project.  
-* `build-type' -- `release` or `development`.
+* `build-type` -- `release` or `development`.
 * `build-version` -- Generated build version (also accessed via ${{ env.build-version }}).
 * `chart-version` -- Generated chart version.
 * `ecr-repository` -- Name of ECR repository (also accessed via ${{ env.ecr-repository }}).
