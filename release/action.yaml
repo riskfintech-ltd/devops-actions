@@ -20,11 +20,15 @@ outputs:
   release-archive:
     description: Name of release archive
     value: ${{ env.release_archive }}
+  release-tag:
+    description: Name of release tag
+    value: ${{ env.release_tag }}
 runs:
   using: "composite"
   steps:
     - name: Set up archive name
       run: |
+        echo "release_tag=${{ inputs.name }}-${{ env.build_version }}" >> $GITHUB_ENV
         echo "release_archive=${{ inputs.name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
       shell: bash
     - name: Make release zip file
@@ -37,6 +41,6 @@ runs:
       if: inputs.deploy-to-github == 'yes'
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ env.build_version }}
+        tag: ${{ env.release_tag }}
         artifacts: ${{ env.release_archive }}
         token: ${{ inputs.github-token }}
