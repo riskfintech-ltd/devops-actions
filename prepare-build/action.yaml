@@ -26,13 +26,17 @@ outputs:
     value: ${{ env.chart_version }}
   name:
     description: Name of the project
-    value: ${{ inputs.name }}
+    value: ${{ env.project_name }}
   release-name:
     description: Name of the release
     value: ${{ env.release_name }}
 runs:
   using: "composite"
   steps:
+    - name: Set project name
+      run: |
+        echo "project_name=${{ inputs.name }}" >> $GITHUB_ENV
+      shell: bash
     - name: Set artifact suffix and docker repository for 'push' event
       if: github.event_name == 'push'
       run: |
