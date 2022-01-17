@@ -34,11 +34,11 @@ runs:
         helm package chart --version ${{ env.chart_version }} --app-version ${{ env.build_version }}
         echo "Helm package created with version ${{ env.chart_version }}"
       shell: bash
-    - name: Push Helm Chart to Chartmuseum
-      id: push
-      env:
-        CHART_PACKAGE: ${{ inputs.name }}-${{ env.chart_version }}.tgz
+    - name: Init chart package
       run: |
-        echo "chart_package=$CHART_PACKAGE" >> GITHUB_ENV
-        curl -u ${{ inputs.chartmuseum-username }}:${{ inputs.chartmuseum-password }} -F "chart=@$CHART_PACKAGE" ${{inputs.chartmuseum-url}}/api/charts
+        echo "chart_package=${{ inputs.name }}-${{ env.chart_version }}.tgz" >> GITHUB_ENV
+      shell: bash
+    - name: Push Helm Chart to Chartmuseum
+      run: |
+        curl -v -u ${{ inputs.chartmuseum-username }}:${{ inputs.chartmuseum-password }} -F "chart=@{{ env.chart_package }}" ${{inputs.chartmuseum-url}}/api/charts
       shell: bash
