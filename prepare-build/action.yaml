@@ -5,10 +5,6 @@ inputs:
     description: Name of project to build
     required: false
     default: ${{ github.event.repository.name }}
-  run_number:
-    description: Build number
-    required: false
-    default: ${{ github.run_number }}
 outputs:
   build-type:
     description: release or development
@@ -69,7 +65,7 @@ runs:
       shell: bash
     - name: Generate version
       env:
-        BUILD_VERSION: ${{ env.date }}-${{ inputs.run_number }}${{ env.artifact_infix }}-${{ steps.sha_vars.outputs.short }}
+        BUILD_VERSION: ${{ env.date }}.${{ github.run_number }}${{ env.artifact_infix }}-${{ steps.sha_vars.outputs.short }}
       run: |
         echo "build_version=$BUILD_VERSION" >> $GITHUB_ENV
         echo "chart_version=$BUILD_VERSION-chart" >> $GITHUB_ENV
