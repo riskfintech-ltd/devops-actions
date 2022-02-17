@@ -49,7 +49,7 @@ runs:
       run: |
         echo "artifact_infix=-dev" >> $GITHUB_ENV
         echo "build_type=development" >> $GITHUB_ENV
-        echo "ecr_repository=development/${{ inputs.name }}" >> $GITHUB_ENV
+        echo "ecr_repository=release/${{ inputs.name }}" >> $GITHUB_ENV
       shell: bash
     - name: Set commit sha variables
       id: sha_vars
