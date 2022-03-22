@@ -28,7 +28,7 @@ runs:
   steps:
     - name: Set up archive name
       run: |
-        echo "release_tag=${{ inputs.name }}-${{ env.build_version }}" >> $GITHUB_ENV
+        echo "release_tag=${{ env.build_version }}" >> $GITHUB_ENV
         echo "release_archive=${{ inputs.name }}-${{ env.build_version }}.zip" >> $GITHUB_ENV
       shell: bash
     - name: Make release zip file

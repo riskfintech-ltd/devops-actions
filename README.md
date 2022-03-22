@@ -8,13 +8,13 @@ Prepare set of variables related to project build that will be used later.
 * `name` [Optional] -- Name of project to build. Will be equal to Git repo name `${{ github.event.repository.name }}` if not set.
 
 ### Output
-* `name` -- Name of the project.  
+* `name` -- Name of the project (also accessed via ${{ env.project_name }}.)  
 * `build-type` -- `release` or `development`.
-* `build-version` -- Generated build version (also accessed via ${{ env.build-version }}).
+* `build-version` -- Generated build version (also accessed via ${{ env.build-version }}.)
 * `chart-version` -- Generated chart version.
-* `ecr-repository` -- Name of ECR repository (also accessed via ${{ env.ecr-repository }}).
-* `sha-short-var` -- Current Git commit head (short version).
-* `sha-full-var` -- Current Git commit head (full version).
+* `ecr-repository` -- Name of ECR repository (also accessed via ${{ env.ecr-repository }}.)
+* `sha-short-var` -- Current Git commit head (short version.)
+* `sha-full-var` -- Current Git commit head (full version.)
 * `release-name` -- Release name (it can be used for making a release archive, for example), it's also accessible via ${{ env.release_name }}.  
 
 ### Usage
